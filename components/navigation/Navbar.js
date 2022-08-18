@@ -30,18 +30,32 @@ const Navbar = () => {
     return (
         <Container py="4" maxW='container.xl' display="flex" justifyContent="space-between" alignItems="center" spacing="24">
             {/* Logo */}
-            <Heading as='h1' size='lg'><Link href="/">Rockstar</Link></Heading>
+            <HStack>
+                <Heading as='h1' size='lg'><Link href="/">Rockstar</Link></Heading>
+                <HStack gap="2">
+                    {
+                        [
+                            { title: "Blogs", href: "/" },
+                            { title: "About Us", href: "/about" },
+                            { title: "Contact Us", href: "/contact" }
+                        ].map((menuItem, i) =>
+                            <Link key={i} href={menuItem.href}>{menuItem.title}</Link>
+                        )
+                    }
+                </HStack>
+            </HStack>
             {/* Menu */}
             <HStack gap="2">
-                {
-                    [
-                        { title: "Blogs", href: "/" },
-                        { title: "About Us", href: "/about" },
-                        { title: "Contact Us", href: "/contact" }
-                    ].map((menuItem, i) =>
-                        <Link key={i} href={menuItem.href}>{menuItem.title}</Link>
-                    )
-                }
+                <Button size={"sm"} variant="ghost" colorScheme="red">
+                    <Link href="/auth/login">
+                        Login
+                    </Link>
+                </Button>
+                <Button colorScheme="red" size={"sm"}>
+                    <Link href="/auth/register">
+                        Register
+                    </Link>
+                </Button>
                 <Box p={2} onClick={() => handleSearchIconClick()} style={{ cursor: "pointer" }} display="flex" alignItems="center" justifyContent="center" borderRadius="100" bgColor={"red.500"}>
                     <FaSearch color="white" size={14} />
                 </Box>

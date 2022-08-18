@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, GridItem, Heading, Input, InputGroup, InputLeftElement, Text, useTheme } from '@chakra-ui/react'
+import { Box, Button, Container, Grid, GridItem, Heading, Image, Input, InputGroup, InputLeftElement, Text, useTheme, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
 import { MdBuild, MdCall } from "react-icons/md"
@@ -16,6 +16,7 @@ export default function Home() {
 }
 
 function HeroSection() {
+  const toast = useToast()
   return (
     <Container paddingBlock="8" display="flex" flexDirection="column" alignItems="center " maxW='container.lg'>
       <Heading as="h2" size='2xl' color="red.400">
@@ -30,7 +31,15 @@ function HeroSection() {
       <Box>
         <InputGroup>
           <Input variant='filled' placeholder='Enter Your Email' size="lg" />
-          <Button marginInlineStart="4" colorScheme="red" size="lg">
+          <Button onClick={() =>
+            toast({
+              title: 'Subscription Added',
+              description: "Thank you for subscribing to Rockstar Blogs",
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
+          } marginInlineStart="4" colorScheme="red" size="lg">
             Subsrcibe
           </Button>
         </InputGroup>
@@ -45,13 +54,35 @@ function RecentBlogPosts() {
       <Text fontSize="xl" >
         Recent Blog Posts
       </Text>
-      <Grid h='200px'
-        templateRows='repeat(2, 1fr)'
+      <Grid
         templateColumns='repeat(5, 1fr)'
         gap={4} width="container.xl" >
-        <GridItem rowSpan={2} colSpan={3} bg='tomato' />
-        <GridItem rowSpan={1} colSpan={2} bg='tomato' />
-        <GridItem rowSpan={1} colSpan={2} bg='tomato' />
+        <GridItem colSpan={3}>
+          <Box p={5} shadow={"md"} borderWidth='1px'>
+            <Image alt='Dan Abramov' objectFit='cover'
+              src='https://picsum.photos/800/400' />
+            <Heading fontSize='xl'>Blog Recent 1</Heading>
+            <Text mt={4}>lorem ipsum dolor sit</Text>
+            <Link href={`/blogs/recent1`}>Read More</Link>
+          </Box>
+        </GridItem>
+        <GridItem colSpan={2} >
+          <Box p={5} shadow={"md"} borderWidth='1px'>
+            <Image alt='Dan Abramov' objectFit='cover'
+              src='https://picsum.photos/600/180' />
+            <Heading fontSize='xl'>Blog Recent 2</Heading>
+            <Text mt={4}>lorem ipsum dolor sit</Text>
+            <Link href={`/blogs/recent2`}>Read More</Link>
+          </Box>
+          <Box marginBlock={4} p={5} shadow={"md"} borderWidth='1px'>
+            <Image alt='Dan Abramov' objectFit='cover'
+              src='https://picsum.photos/600/180' />
+            <Heading fontSize='xl'>Blog Recent 3</Heading>
+            <Text mt={4}>lorem ipsum dolor sit</Text>
+            <Link href={`/blogs/recent3`}>Read More</Link>
+          </Box>
+        </GridItem>
+
       </Grid>
       {/* Blog Wrapper */}
       {/* Latest #1 */}
@@ -61,7 +92,7 @@ function RecentBlogPosts() {
   )
 }
 function AllBlogPosts() {
-  const [mouseOver,setMouseOver] = React.useState(false)
+  const [mouseOver, setMouseOver] = React.useState(false)
   return (
     <Container maxW="container.xl">
       <Text fontSize="xl" >
@@ -75,7 +106,7 @@ function AllBlogPosts() {
         {
           [1, 2, 3, 4, 5, 6].map((title, i) =>
             <GridItem key={i} colSpan={2}>
-              <Box p={5} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}shadow={mouseOver ? "lg" :"none"} borderWidth='1px'>
+              <Box p={5} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)} shadow={mouseOver ? "lg" : "none"} borderWidth='1px'>
                 <Heading fontSize='xl'>Blog #{title}</Heading>
                 <Text mt={4}>lorem ipsum dolor sit</Text>
                 <Link href={`/blogs/${title}`}>Read More</Link>

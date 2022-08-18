@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Box, Button, Container, Heading, HStack, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { FaSearch } from "react-icons/fa"
 import React from "react";
+import SearchModal from "./SearchModal";
 
 const Navbar = () => {
 
@@ -27,11 +28,43 @@ const Navbar = () => {
 
     const filteredBlogs = allBlogs.filter((title) => title.toLowerCase().includes(searchQuery))
 
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    const [scrollPosition, setScrollPosition] = React.useState(0);
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const reqOffSet = 80;
+
+    let navContainerProps = {
+        py: "4",
+        px: "16",
+        bgColor: "white",
+        position: scrollPosition > reqOffSet ? "fixed" : "initial",
+        boxShadow: scrollPosition > reqOffSet ? "md" : "none",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        spacing: "24",
+        zIndex: 999,
+        width: "100vw",
+    }
+
+
     return (
-        <Container py="4" maxW='container.xl' display="flex" justifyContent="space-between" alignItems="center" spacing="24">
+        <Box {...navContainerProps} >
             {/* Logo */}
             <HStack>
-                <Heading as='h1' size='lg'><Link href="/">Rockstar</Link></Heading>
+                <Heading as='h1' size='md' marginInlineEnd={4}><Link href="/">Rockstar</Link></Heading>
                 <HStack gap="2">
                     {
                         [
@@ -60,36 +93,16 @@ const Navbar = () => {
                     <FaSearch color="white" size={14} />
                 </Box>
             </HStack>
-            <Modal onClose={() => {
-                setSearchQuery("");
-                onClose()
-            }} size={"2xl"} isOpen={isOpen}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>
-                        <Input variant="filled" size="lg" color={"red.500"} value={searchQuery}
-                            onChange={handleChange} placeholder='Search with keywords...' />
-                    </ModalHeader>
-                    <ModalBody>
-                        <UnorderedList>
-                            {
-                                filteredBlogs.map((title, i) =>
-                                    <ListItem mb={2} onClick={onClose} key={i}>
-                                        <Text>
-                                            <Link href={`/blogs/${i}`}>
-                                                {title}
-                                            </Link>
-                                        </Text>
-                                    </ListItem>)
-                            }
-                        </UnorderedList>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button colorScheme={"red"} onClick={onClose}>Close</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </Container>
+            <SearchModal
+                isOpen={isOpen}
+                items={filteredBlogs}
+                searchQuery={searchQuery}
+                onChange={handleChange}
+                onClose={() => {
+                    setSearchQuery("");
+                    onClose()
+                }} />
+        </Box>
     )
 
 }

@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Container, Grid, GridItem, Heading, Image, Input, InputGroup, InputLeftElement, Stack, Text, useTheme, useToast } from '@chakra-ui/react'
+import { Badge, Box, Button, Container, Grid, GridItem, Heading, Image, Input, InputGroup, InputLeftElement, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useTheme, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
 import { MdBuild, MdCall } from "react-icons/md"
@@ -91,11 +91,11 @@ function RecentBlogCard({ id, orientation = "column" }) {
     textSize.desc = "x-small";
     btnSize.readMore = "xs";
     textContainer.padding = 2.5
-    description = description.substring(0,96) + "..."
+    description = description.substring(0, 96) + "..."
 
   }
 
-  
+
 
   return (
     <Box display="flex" flexDirection={orientation} shadow={"md"} borderWidth='1px'>
@@ -123,11 +123,36 @@ function RecentBlogCard({ id, orientation = "column" }) {
 
 function AllBlogPosts() {
   const [mouseOver, setMouseOver] = React.useState(false)
+  const [tabSection, setTabSection] = React.useState("all")
   return (
     <Container maxW="container.xl">
       <Text fontSize="xl" >
         All Blog Posts
       </Text>
+      <Tabs variant='enclosed'>
+        <TabList>
+          <Tab>One</Tab>
+          <Tab>Two</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Grid
+              templateColumns='repeat(6, 1fr)'
+              gap={4}
+              width="container.xl" >
+              {
+                [1, 2, 3, 4, 5, 6].map((title, i) =>
+                  <GridItem key={i} colSpan={2}>
+                    <RecentBlogCard id={title}  />
+                  </GridItem>)
+              }
+            </Grid>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
       {/* 3*3 grid of Articles */}
       <Grid
         templateColumns='repeat(6, 1fr)'
@@ -137,7 +162,7 @@ function AllBlogPosts() {
           [1, 2, 3, 4, 5, 6].map((title, i) =>
             <GridItem key={i} colSpan={2}>
               <Box p={5} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)} shadow={mouseOver ? "lg" : "none"} borderWidth='1px'>
-                <Heading fontSize='xl'>Blog #{title}</Heading>
+                <Heading fontSize='xl'> {tabSection} Blog #{title}</Heading>
                 <Text mt={4}>lorem ipsum dolor sit</Text>
                 <Link href={`/blogs/${title}`}>Read More</Link>
               </Box>

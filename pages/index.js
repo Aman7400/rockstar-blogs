@@ -1,4 +1,6 @@
 import { Box, Button, Container, Grid, GridItem, Heading, Input, InputGroup, InputLeftElement, Text, useTheme } from '@chakra-ui/react'
+import Link from 'next/link'
+import React from 'react'
 import { MdBuild, MdCall } from "react-icons/md"
 
 export default function Home() {
@@ -59,6 +61,7 @@ function RecentBlogPosts() {
   )
 }
 function AllBlogPosts() {
+  const [mouseOver,setMouseOver] = React.useState(false)
   return (
     <Container maxW="container.xl">
       <Text fontSize="xl" >
@@ -66,18 +69,22 @@ function AllBlogPosts() {
       </Text>
       {/* 3*3 grid of Articles */}
       <Grid
-        h='200px'
         templateColumns='repeat(6, 1fr)'
         gap={4}
         width="container.xl" >
         {
-          [1, 2, 3, 4, 5, 6].map((_, i) => <GridItem key={i} colSpan={2} bg='red' />)
+          [1, 2, 3, 4, 5, 6].map((title, i) =>
+            <GridItem key={i} colSpan={2}>
+              <Box p={5} onMouseOver={() => setMouseOver(true)} onMouseOut={() => setMouseOver(false)}shadow={mouseOver ? "lg" :"none"} borderWidth='1px'>
+                <Heading fontSize='xl'>Blog #{title}</Heading>
+                <Text mt={4}>lorem ipsum dolor sit</Text>
+                <Link href={`/blogs/${title}`}>Read More</Link>
+              </Box>
+            </GridItem>)
         }
       </Grid>
-
       {/* Pagination */}
       <Text>Pagination</Text>
-      
     </Container>
   )
 }

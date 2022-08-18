@@ -1,10 +1,17 @@
 import Link from "next/link";
-import { Box, Button, Container, Heading, HStack, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList, useDisclosure } from '@chakra-ui/react'
+import { Avatar, Box, Button, Container, Heading, HStack, Input, ListItem, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { FaSearch } from "react-icons/fa"
+import { CgProfile } from "react-icons/cg"
+import { BsFillPersonFill } from "react-icons/bs"
+
 import React from "react";
 import SearchModal from "./SearchModal";
+import { AuthContext } from "../../contexts/AuthContext";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
+
+    const { isLoggedIn, handleLogin, handleLogout } = React.useContext(AuthContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const handleSearchIconClick = () => {
@@ -79,19 +86,28 @@ const Navbar = () => {
             </HStack>
             {/* Menu */}
             <HStack gap="2">
-                <Button size={"sm"} variant="ghost" colorScheme="red">
-                    <Link href="/auth/login">
-                        Login
-                    </Link>
-                </Button>
-                <Button colorScheme="red" size={"sm"}>
-                    <Link href="/auth/register">
-                        Register
-                    </Link>
-                </Button>
+                {
+                    !isLoggedIn &&
+                    <>
+                        <Button onClick={() => handleLogin()} size={"sm"} variant="ghost" colorScheme="red">
+                            <Link href="/auth/login">
+                                Login
+                            </Link>
+                        </Button>
+                        <Button colorScheme="red" size={"sm"}>
+                            <Link href="/auth/register">
+                                Register
+                            </Link>
+                        </Button>
+                    </>
+                }
                 <Box p={2} onClick={() => handleSearchIconClick()} style={{ cursor: "pointer" }} display="flex" alignItems="center" justifyContent="center" borderRadius="100" bgColor={"red.500"}>
                     <FaSearch color="white" size={14} />
                 </Box>
+                {
+                    isLoggedIn && <UserMenu handleLogout={handleLogout} />
+                }
+
             </HStack>
             <SearchModal
                 isOpen={isOpen}

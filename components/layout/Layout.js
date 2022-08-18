@@ -1,6 +1,7 @@
 import Navbar from "../navigation/Navbar";
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import Footer from "./Footer";
+import { AuthContextProvider } from "../../contexts/AuthContext";
 
 const theme = extendTheme({
     fonts: {
@@ -32,9 +33,11 @@ const theme = extendTheme({
 export default function Layout({ children }) {
     return (
         <ChakraProvider theme={theme} resetCSS>
-            <Navbar />
-            {children}
-            <Footer/>
+            <AuthContextProvider>
+                <Navbar />
+                {children}
+                <Footer />
+            </AuthContextProvider>
         </ChakraProvider>
     )
 }

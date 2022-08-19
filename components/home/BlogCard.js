@@ -2,7 +2,7 @@ import { Badge, Box, Button, Heading, Image, Link, Stack, Text } from "@chakra-u
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function BlogCard({ id, orientation = "column" }) {
-    let imgSize = { width: 800, height: 400 }
+    let imgSize = { width: 800, height: 360 }
     let textSize = { heading: "2xl", desc: "lg" }
     let btnSize = { readMore: "lg", badge: "" }
     let description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Laoreet suspendisse interdum consectetur libero id.';
@@ -10,8 +10,8 @@ export default function BlogCard({ id, orientation = "column" }) {
         padding: 5
     }
     if (orientation === "row") {
-        imgSize.width = 240;
-        imgSize.height = 140;
+        imgSize.width = 180;
+        imgSize.height = 180;
         textSize.heading = "lg";
         textSize.desc = "x-small";
         btnSize.readMore = "xs";
@@ -23,7 +23,7 @@ export default function BlogCard({ id, orientation = "column" }) {
 
 
     return (
-        <Box display="flex" flexDirection={orientation} shadow={"md"} borderWidth='1px'>
+        <Box mb={orientation === "row" ? "5" : "0"} cursor="pointer" display="flex" flexDirection={orientation} shadow={"md"} borderWidth='1px'>
             <Image alt='Dan Abramov' objectFit='cover'
                 src={`https://picsum.photos/${imgSize.width}/${imgSize.height}`} />
 

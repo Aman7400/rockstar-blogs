@@ -34,7 +34,7 @@ export default function BlogCard({ id, orientation = "column" }) {
                     <Badge colorScheme='red'>Removed</Badge>
                     <Badge colorScheme='purple'>New</Badge>
                 </Stack>
-                <Heading fontSize={textSize.heading}>Blog Recent {id}</Heading>
+                <Heading fontSize={textSize.heading}>{id}</Heading>
                 <Text color="gray.500" fontSize={textSize.desc} mt={1}>{description}</Text>
                 <Button size={btnSize.readMore} variant="ghost" colorScheme="red" rightIcon={<FaExternalLinkAlt />}>
                     <Link href={`/blogs/recent${id}`}>

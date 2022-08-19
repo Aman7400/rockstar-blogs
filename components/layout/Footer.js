@@ -3,7 +3,7 @@ import { Container, Heading, Text, VStack } from "@chakra-ui/react"
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <Container>
+    <Container py={16}>
       <VStack display={"flex"} justifyContent="center">
         <Heading size="sm" color="red.500">
           Rockstar Blogs &copy; {currentYear}

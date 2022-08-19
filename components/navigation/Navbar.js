@@ -75,11 +75,15 @@ const Navbar = () => {
                 <HStack gap="2">
                     {
                         [
-                            { title: "Blogs", href: "/" },
-                            { title: "About Us", href: "/about" },
+                            { title: "Home", href: "/" },
+                            { title: "About", href: "/about" },
                             { title: "Contact Us", href: "/contact" }
                         ].map((menuItem, i) =>
-                            <Link key={i} href={menuItem.href}>{menuItem.title}</Link>
+                            <Text key={i} color="gray.500">
+                                <Link href={menuItem.href}>
+                                    {menuItem.title}
+                                </Link>
+                            </Text>
                         )
                     }
                 </HStack>

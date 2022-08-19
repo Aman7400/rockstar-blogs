@@ -2,7 +2,6 @@ import React from 'react'
 import HeroSection from '../components/home/HeroSection'
 import LatestBlogs from '../components/home/LatestBlogs'
 import AllBlogPosts from '../components/home/AllBlogPosts'
-import MobileAppMockup from '../components/home/MobileMockup'
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
       <HeroSection />
       <LatestBlogs />
       <AllBlogPosts />
-      <MobileAppMockup />
     </>
   )
 }

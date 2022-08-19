@@ -1,7 +1,9 @@
 import { Badge, Box, Button, Heading, Image, Link, Stack, Text } from "@chakra-ui/react";
+import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 export default function BlogCard({ id, orientation = "column" }) {
+
     let imgSize = { width: 800, height: 360 }
     let textSize = { heading: "2xl", desc: "lg" }
     let btnSize = { readMore: "lg", badge: "" }
@@ -13,20 +15,34 @@ export default function BlogCard({ id, orientation = "column" }) {
         imgSize.width = 180;
         imgSize.height = 180;
         textSize.heading = "lg";
-        textSize.desc = "x-small";
-        btnSize.readMore = "xs";
+        textSize.desc = "small";
+        btnSize.readMore = "sm";
         textContainer.padding = 2.5
         description = description.substring(0, 96) + "..."
 
     }
 
 
+    const [isHovering, setIsHovering] = React.useState(false)
+
+    const boxProps = {
+
+        onMouseOver: () => setIsHovering(true),
+        onMouseOut: () => setIsHovering(false),
+        shadow: isHovering ? "lg" : "none",
+        mb: orientation === "row" ? "5" : "0",
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: orientation,
+        borderWidth: '1px'
+
+    }
+
+
 
     return (
-        <Box mb={orientation === "row" ? "5" : "0"} cursor="pointer" display="flex" flexDirection={orientation} shadow={"md"} borderWidth='1px'>
-            <Image alt='Dan Abramov' objectFit='cover'
-                src={`https://picsum.photos/${imgSize.width}/${imgSize.height}`} />
-
+        <Box {...boxProps} >
+            <Image alt='Dan Abramov' objectFit='cover' src={`https://picsum.photos/${imgSize.width}/${imgSize.height}`} />
             <Box p={textContainer.padding}>
                 <Stack marginBlock={2} direction='row' flexWrap="wrap">
                     <Badge >Default</Badge>

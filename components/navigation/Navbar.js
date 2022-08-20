@@ -8,8 +8,11 @@ import React from "react";
 import SearchModal from "./SearchModal";
 import { AuthContext } from "../../contexts/AuthContext";
 import UserMenu from "./UserMenu";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+
+    const { pathname } = useRouter()
 
     const { isLoggedIn, handleLogin, handleLogout } = React.useContext(AuthContext)
 
@@ -42,7 +45,7 @@ const Navbar = () => {
         px: "16",
         bgColor: "white",
         position: "fixed",
-        top:"0",
+        top: "0",
         height: "8vh",
         // boxShadow: scrollPosition > reqOffSet ? "md" : "none",
         display: "flex",
@@ -66,11 +69,11 @@ const Navbar = () => {
                             { title: "About", href: "/about" },
                             { title: "Contact Us", href: "/contact" }
                         ].map((menuItem, i) =>
-                            <Text key={i} color="gray.500">
+                            <Heading size="sm" key={i} color={pathname === menuItem.href ? "red.500" : "gray.500"}>
                                 <Link href={menuItem.href}>
                                     {menuItem.title}
                                 </Link>
-                            </Text>
+                            </Heading>
                         )
                     }
                 </HStack>

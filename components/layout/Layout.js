@@ -1,5 +1,5 @@
 import Navbar from "../navigation/Navbar";
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react'
 import Footer from "./Footer";
 import { AuthContextProvider } from "../../contexts/AuthContext";
 
@@ -35,7 +35,9 @@ export default function Layout({ children }) {
         <ChakraProvider theme={theme} resetCSS>
             <AuthContextProvider>
                 <Navbar />
-                {children}
+                <Box marginTop={"8vh"}>
+                    {children}
+                </Box>
                 <Footer />
             </AuthContextProvider>
         </ChakraProvider>

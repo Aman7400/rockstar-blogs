@@ -35,29 +35,16 @@ const Navbar = () => {
 
     const filteredBlogs = allBlogs.filter((title) => title.toLowerCase().includes(searchQuery))
 
-    const handleScroll = () => {
-        const position = window.pageYOffset;
-        setScrollPosition(position);
-    };
-
-    const [scrollPosition, setScrollPosition] = React.useState(0);
-
-    React.useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
     const reqOffSet = 80;
 
     let navContainerProps = {
         py: "4",
         px: "16",
         bgColor: "white",
-        position: scrollPosition > reqOffSet ? "fixed" : "initial",
-        boxShadow: scrollPosition > reqOffSet ? "md" : "none",
+        position: "fixed",
+        top:"0",
+        height: "8vh",
+        // boxShadow: scrollPosition > reqOffSet ? "md" : "none",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",

@@ -39,8 +39,6 @@ export default function AllBlogPosts() {
           }
         </TabPanels>
       </Tabs>
-      {/* Pagination */}
-      <Text>Pagination</Text>
     </Container>
   )
 }
